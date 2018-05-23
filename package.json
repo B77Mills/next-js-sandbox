@@ -3,5 +3,13 @@
   "version": "0.1.0",
   "main": "index.js",
   "author": "Jacob Bare <jacob@limit0.io>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "next"
+  },
+  "dependencies": {
+    "next": "^6.0.3",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  }
 }
