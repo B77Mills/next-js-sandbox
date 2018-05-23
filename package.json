@@ -5,9 +5,10 @@
   "author": "Jacob Bare <jacob@limit0.io>",
   "license": "MIT",
   "scripts": {
-    "dev": "next"
+    "dev": "node server.js"
   },
   "dependencies": {
+    "express": "^4.16.3",
     "next": "^6.0.3",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
