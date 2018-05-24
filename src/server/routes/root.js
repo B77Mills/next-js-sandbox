@@ -5,10 +5,10 @@ const sitemap = require('../services/sitemap');
 
 const router = Router();
 
-module.exports = (next) => {
+module.exports = (client) => {
   router.get('/favicon.ico', (req, res) => {
     const file = path.resolve(__dirname, '../../static/favicon.ico');
-    next.serveStatic(req, res, file);
+    client.serveStatic(req, res, file);
   });
 
   router.get('/robots.txt', (req, res) => {

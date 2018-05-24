@@ -1,7 +1,7 @@
 const index = require('./root');
 const story = require('./story');
 
-module.exports = (app, next) => {
-  app.use('/', index(next));
-  app.use('/story', story(next));
+module.exports = (server, client) => {
+  server.use('/', index(client));
+  server.use('/story', story(client));
 };

@@ -8,10 +8,10 @@ const { PORT } = process.env;
 const server = express();
 server.use(helmet());
 
-module.exports = (next) => {
-  const handle = next.getRequestHandler();
+module.exports = (client) => {
+  const handle = client.getRequestHandler();
 
-  routes(server, next);
+  routes(server, client);
 
   server.get('*', (req, res) => {
     handle(req, res);
