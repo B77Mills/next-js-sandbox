@@ -15,7 +15,7 @@ module.exports = (next) => {
   server.get('/story/:id', (req, res) => {
     const { id } = req.params;
     const actualPage = '/story';
-    const props = { id } ;
+    const props = { id };
     next.render(req, res, actualPage, props);
   });
 
@@ -37,11 +37,12 @@ module.exports = (next) => {
   });
 
   server.get('*', (req, res) => {
-    return handle(req, res);
+    handle(req, res);
   });
 
   server.listen(PORT, (err) => {
     if (err) throw err;
+    // eslint-disable-next-line no-console
     console.log(`> Ready on http://localhost:${PORT}`);
   });
 };
