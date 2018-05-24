@@ -4,7 +4,7 @@ services:
     tty: true
     image: node:8.11.2
     ports:
-      - "${APP_PORT-8009}:8009"
+      - "${APP_PORT-3000}:${APP_PORT-3000}"
     working_dir: /app
     volumes:
       - .:/app:cached
@@ -13,6 +13,6 @@ services:
     entrypoint: node server.js
     environment:
       NODE_ENV: development
-      PORT: ${APP_PORT-8009}
+      PORT: ${APP_PORT-3000}
 volumes:
   node_modules: {}
