@@ -11,8 +11,15 @@ app.prepare().then(() => {
   server.get('/story/:id', (req, res) => {
     const { id } = req.params;
     const actualPage = '/story';
-    const queryParams = { id } ;
-    app.render(req, res, actualPage, queryParams);
+    const props = { id } ;
+    app.render(req, res, actualPage, props);
+  });
+
+  server.get('/p/:id', (req, res) => {
+    const { id } = req.params;
+    const actualPage = '/post';
+    const props = { title: id } ;
+    app.render(req, res, actualPage, props);
   });
 
   server.get('*', (req, res) => {

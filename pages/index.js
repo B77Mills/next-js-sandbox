@@ -14,7 +14,7 @@ const Index = (props) => (
         </li>
       ))}
     </ul>
-    <style jsx>{`
+    {/* <style jsx>{`
       h1, a {
         font-family: "Arial";
       }
@@ -36,7 +36,7 @@ const Index = (props) => (
       a:hover {
         opacity: 0.6;
       }
-    `}</style>
+    `}</style> */}
   </Layout>
 )
 
