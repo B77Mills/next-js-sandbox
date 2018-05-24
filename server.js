@@ -15,13 +15,6 @@ app.prepare().then(() => {
     app.render(req, res, actualPage, props);
   });
 
-  server.get('/p/:id', (req, res) => {
-    const { id } = req.params;
-    const actualPage = '/post';
-    const props = { title: id } ;
-    app.render(req, res, actualPage, props);
-  });
-
   server.get('*', (req, res) => {
     return handle(req, res);
   });
