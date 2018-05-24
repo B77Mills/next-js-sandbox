@@ -11,7 +11,7 @@
     "terminal": "if [ \"$(docker inspect -f {{.State.Running}} nextjssandbox_app_1 2>/dev/null)\" = true ]; then docker exec -it nextjssandbox_app_1 /bin/bash; else printf \"$npm_package_docker_terminal_error\" && exit 1; fi"
   },
   "docker": {
-    "terminal" : {
+    "terminal": {
       "error": "\n\n\t ERROR: Container is not running -- did you 'yarn start'? \n\n"
     },
     "dev": {
@@ -35,6 +35,7 @@
     "eslint-loader": "^2.0.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.8.2"
+    "eslint-plugin-react": "^7.8.2",
+    "nodemon": "^1.17.5"
   }
 }
