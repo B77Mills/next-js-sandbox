@@ -5,8 +5,7 @@
   "author": "Jacob Bare <jacob@limit0.io>",
   "license": "MIT",
   "scripts": {
-    "start": "$npm_package_docker_dev_install && $npm_package_docker_dev_up",
-    "poststart": "yarn stop",
+    "start": "yarn stop && $npm_package_docker_dev_install && $npm_package_docker_dev_up",
     "stop": "$npm_package_docker_dev_down",
     "terminal": "if [ \"$(docker inspect -f {{.State.Running}} nextjssandbox_app_1 2>/dev/null)\" = true ]; then docker exec -it nextjssandbox_app_1 /bin/bash; else printf \"$npm_package_docker_terminal_error\" && exit 1; fi"
   },
