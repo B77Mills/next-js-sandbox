@@ -5,7 +5,6 @@
   "author": "Jacob Bare <jacob@limit0.io>",
   "license": "MIT",
   "scripts": {
-    "dev": "node server.js",
     "start": "$npm_package_docker_dev_install && $npm_package_docker_dev_up",
     "poststart": "yarn stop",
     "stop": "$npm_package_docker_dev_down",
@@ -14,7 +13,6 @@
   "docker": {
     "terminal" : {
       "error": "\n\n\t ERROR: Container is not running -- did you 'yarn start'? \n\n"
-
     },
     "dev": {
       "install": "docker-compose -p nextjssandbox run --entrypoint yarn app",
