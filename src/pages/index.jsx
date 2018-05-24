@@ -2,10 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import PropTypes from 'prop-types';
+import Head from 'next/head';
 import Layout from '../components/MyLayout';
 
 const Index = props => (
   <Layout>
+    <Head>
+      <title>Homepage</title>
+    </Head>
     <h1>Stories</h1>
     <ul>
       {props.shows.map(({ show }) => (
