@@ -1,4 +1,6 @@
 module.exports = {
+  distDir: '../.next',
+
   webpack: (config, { dev }) => {
     config.module.rules.push({
       test: /\.jsx?$/,
