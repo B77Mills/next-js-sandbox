@@ -1,22 +1,35 @@
-import Layout from '../components/MyLayout';
+import React from 'react';
 import fetch from 'isomorphic-unfetch';
+import PropTypes from 'prop-types';
+import Layout from '../components/MyLayout';
 
-const Story = (props) => (
+const Story = props => (
   <Layout>
     <h1>{props.show.name}</h1>
     <p>{props.show.summary.replace(/<[/]?p>/g, '')}</p>
-    <img src={props.show.image.medium}/>
+    <img alt={props.show.name} src={props.show.image.medium} />
   </Layout>
-)
+);
 
-Story.getInitialProps = async function (context) {
-  const { id } = context.query
-  const res = await fetch(`https://api.tvmaze.com/shows/${id}`)
-  const show = await res.json()
+Story.getInitialProps = async (context) => {
+  const { id } = context.query;
+  const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
+  const show = await res.json();
 
-  console.log(`Fetched show: ${show.name}`)
+  // eslint-disable-next-line no-console
+  console.log(`Fetched show: ${show.name}`);
 
-  return { show }
-}
+  return { show };
+};
+
+Story.propTypes = {
+  show: PropTypes.shape({
+    name: PropTypes.string,
+    summary: PropTypes.string,
+    image: PropTypes.shape({
+      medium: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
 export default Story;
