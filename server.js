@@ -1,5 +1,6 @@
 const express = require('express');
 const next = require('next');
+const path = require('path');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({
@@ -17,6 +18,11 @@ app.prepare().then(() => {
     const actualPage = '/story';
     const props = { id } ;
     app.render(req, res, actualPage, props);
+  });
+
+  server.get('/favicon.ico', (req, res) => {
+    const file = path.join(__dirname, 'src/static/favicon.ico');
+    app.serveStatic(req, res, file);
   });
 
   server.get('*', (req, res) => {
