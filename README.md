@@ -7,7 +7,7 @@ This project requires [Docker Compose](https://docs.docker.com/compose/overview/
 1. Clone repository
 2. Override any applicable development environment variables (see [Environment Variables](#environment-variables) below)
 3. In the project root, run `yarn start`
-4. The server is now accessible on `localhost:8009` (or whatever port you configure)
+4. The server is now accessible on `localhost:3000` (or whatever port you configure)
 
 ## Interactive Terminal
 You can load an interactive terminal for the app container via `yarn terminal`. This will allow you to add, remove, or upgrade project dependencies using Yarn (among other things). Note: _the application instance must be running via `yarn start` for the terminal to load._
@@ -17,7 +17,7 @@ Production environment variables are *not* under version control, per [Part 3 of
 1. Create a `.env` file in the project root (at the same level as the `package.json` file)
 2. Set (or change) values for the following variables:
 ```ini
-APP_PORT=8009
+APP_PORT=3000
 
 DEBUG=express:*
 ```
