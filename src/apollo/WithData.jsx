@@ -5,21 +5,11 @@ import initApollo from './init';
 
 const getDisplayName = Component => Component.displayName || Component.name || 'Unknown';
 
-export default apolloConfig => {
-  return ComposedComponent => {
-    return class WithData extends React.Component {
-      /**
-       * Generate the composed component name.
-       */
-      static displayName = `WithData(${getDisplayName(ComposedComponent)})`;
-
-      static propTypes = {
-        serverState: PropTypes.object.isRequired,
-      };
-
-      static async getInitalProps(context) {
-        console.info('getInitialProps context', context);
-        const serverState = { apollo: {} };
+export default function withData(apolloConfig) {
+  return (ComposedComponent) => {
+    class WithData extends React.Component {
+      static async getInitialProps(context) {
+        let serverState = { apollo: {} };
         const {
           req,
           query,
@@ -29,8 +19,8 @@ export default apolloConfig => {
 
         // Await the composed components initial props.
         let composedProps = {};
-        if (ComposedComponent.getInitalProps) {
-          composedProps = await ComposedComponent.getInitalProps(context);
+        if (ComposedComponent.getInitialProps) {
+          composedProps = await ComposedComponent.getInitialProps(context);
         }
 
         // Run all GraphQL queries in tree and extract their data.
@@ -48,12 +38,17 @@ export default apolloConfig => {
                   {...composedProps}
                 />
               </ApolloProvider>,
-              { router: { asPath, pathname, query } }
+              { router: { asPath, pathname, query } },
             );
           } catch (e) {
             // Prevent errors from crashing SSR.
             // Handle the error in components via data.error prop.
           }
+          // @todo Determine if this needs to be called.
+          // Head.rewind();
+          serverState = {
+            apollo: { data: apollo.cache.extract() },
+          };
         }
         return { serverState, ...composedProps };
       }
@@ -72,5 +67,13 @@ export default apolloConfig => {
         );
       }
     }
-  }
-};
+
+    WithData.displayName = `WithData(${getDisplayName(ComposedComponent)})`;
+
+    WithData.propTypes = {
+      // eslint-disable-next-line react/forbid-prop-types
+      serverState: PropTypes.object.isRequired,
+    };
+    return WithData;
+  };
+}

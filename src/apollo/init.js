@@ -1,8 +1,5 @@
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { onError } from 'apollo-link-error';
-import { ApolloLink } from 'apollo-link';
 
 // The client-side apollo client.
 // Will be initialized once.
@@ -51,4 +48,4 @@ export default function initApollo(config, initialState, req) {
     apolloClient = create(apolloConfig, initialState);
   }
   return apolloClient;
-};
+}
