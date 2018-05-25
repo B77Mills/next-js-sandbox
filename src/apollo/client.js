@@ -7,7 +7,7 @@ const headers = { 'X-Tenant-Key': 'cygnus_fhc' };
 
 const config = {
   link: new HttpLink({
-    uri: 'http://app:8937/graph',
+    uri: 'http://localhost:8937/graph',
     headers,
     fetch,
   }),
