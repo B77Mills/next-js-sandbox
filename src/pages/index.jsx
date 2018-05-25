@@ -31,7 +31,7 @@ const Index = () => {
           const { allStories } = data;
           return (
             <ul>
-              {allStories.map(({ story }) => (
+              {allStories.map(story => (
                 <li key={story.id}>
                   <Link as={`/story/${story.id}`} href={`/story?id=${story.id}`}>
                     <a>{story.title}</a>
