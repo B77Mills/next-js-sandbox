@@ -43,6 +43,8 @@ export default function withData(apolloConfig) {
           } catch (e) {
             // Prevent errors from crashing SSR.
             // Handle the error in components via data.error prop.
+            // eslint-disable-next-line no-console
+            console.error('SERVER ERROR', e);
           }
           // @todo Determine if this needs to be called.
           // Head.rewind();
