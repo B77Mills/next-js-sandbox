@@ -1,68 +1,74 @@
 import React from 'react';
+import { Query } from 'react-apollo';
 import Link from 'next/link';
-import fetch from 'isomorphic-unfetch';
-import PropTypes from 'prop-types';
 import Head from 'next/head';
+import gql from 'graphql-tag';
 import Layout from '../components/MyLayout';
+import withApollo from '../apollo/client';
 
-const Index = props => (
-  <Layout>
-    <Head>
-      <title>Homepage</title>
-    </Head>
-    <h1>Stories</h1>
-    <ul>
-      {props.shows.map(({ show }) => (
-        <li key={show.id}>
-          <Link as={`/story/${show.id}`} href={`/story?id=${show.id}`}>
-            <a>{show.name}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-    <style jsx>
-      {`
-        h1, a {
-          font-family: "Arial";
-        }
+const STORIES = gql`
+  query AllStoriesList($input: AllStoryInput!) {
+    allStories(input: $input) {
+      id
+      title
+    }
+  }
+`;
 
-        ul {
-          padding: 0;
-        }
+const Index = () => {
+  const input = { limit: 10, type: 'Article' };
+  return (
+    <Layout>
+      <Head>
+        <title>Homepage</title>
+      </Head>
+      <h1>Stories</h1>
+      <Query query={STORIES} variables={{ input }}>
+        {({ loading, error, data }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p><strong>{error.message}</strong></p>;
 
-        li {
-          list-style: none;
-          margin: 5px 0;
-        }
+          const { allStories } = data;
+          return (
+            <ul>
+              {allStories.map(({ story }) => (
+                <li key={story.id}>
+                  <Link as={`/story/${story.id}`} href={`/story?id=${story.id}`}>
+                    <a>{story.title}</a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          );
+        }}
+      </Query>
+      {/* <style jsx>
+        {`
+          h1, a {
+            font-family: "Arial";
+          }
 
-        a {
-          text-decoration: none;
-          color: blue;
-        }
+          ul {
+            padding: 0;
+          }
 
-        a:hover {
-          opacity: 0.6;
-        }
-      `}
-    </style>
-  </Layout>
-);
+          li {
+            list-style: none;
+            margin: 5px 0;
+          }
 
-Index.propTypes = {
-  shows: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-  })).isRequired,
+          a {
+            text-decoration: none;
+            color: blue;
+          }
+
+          a:hover {
+            opacity: 0.6;
+          }
+        `}
+      </style> */}
+    </Layout>
+  );
 };
 
-Index.getInitialProps = async () => {
-  const res = await fetch('https://api.tvmaze.com/search/shows?q=batman');
-  const data = await res.json();
-
-  // eslint-disable-next-line no-console
-  console.info(`Show data fetched. Count: ${data.length}`);
-
-  return { shows: data };
-};
-
-export default Index;
+export default withApollo(Index);
