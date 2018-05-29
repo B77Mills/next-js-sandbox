@@ -24,7 +24,7 @@ const Imgix = (props) => {
 
   let img;
   if (path) {
-    img = <img src={src} alt={props.alt} title={props.title} />;
+    img = <img className={props.className} src={src} alt={props.alt} title={props.title} />;
   }
   return (
     img
@@ -36,6 +36,7 @@ Imgix.defaultProps = {
   dpr: process.browser ? window.devicePixelRatio || 1 : 1,
   title: null,
   alt: null,
+  className: null,
 };
 
 Imgix.propTypes = {
