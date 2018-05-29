@@ -9,6 +9,12 @@ const { PORT } = process.env;
 const server = express();
 server.use(helmet());
 
+server.use((req, res, next) => {
+  res.set('Accept-CH', 'DPR');
+  res.set('Accept-CH-Lifetime', 60 * 60 * 24 * 30);
+  next();
+});
+
 module.exports = (client) => {
   const handle = client.getRequestHandler();
 
