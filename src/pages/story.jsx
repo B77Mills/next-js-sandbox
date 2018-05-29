@@ -94,6 +94,7 @@ Story.getInitialProps = async ({ query, req }) => {
 
 Story.propTypes = {
   id: PropTypes.string.isRequired,
+  baseUri: PropTypes.string.isRequired,
 };
 
 export default withApollo(Story);
