@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import { Row, Col } from 'reactstrap';
+import {
+  Row,
+  Col,
+  Card,
+  CardImgOverlay,
+  CardTitle,
+  CardBody,
+} from 'reactstrap';
 import { Query } from 'react-apollo';
 import Layout from '../components/Layout';
 import Imgix from '../components/Imgix';
@@ -30,30 +37,42 @@ const Story = ({ id }) => {
   const input = { id };
   return (
     <Layout>
-      <Query query={STORY} variables={{ input }}>
-        {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p><strong>{error.message}</strong></p>;
+      <Row>
+        <Col>
+          <Card>
+            <Query query={STORY} variables={{ input }}>
+              {({ loading, error, data }) => {
+                if (loading) {
+                  return (
+                    <CardBody>
+                      <p>Loading...</p>
+                    </CardBody>
+                  );
+                }
+                if (error) return <p><strong>{error.message}</strong></p>;
 
-          const { story } = data;
-          const { primaryImage } = story;
+                const { story } = data;
+                const { primaryImage } = story;
 
-          return (
-            <Row>
-              <Head>
-                <title>{story.title}</title>
-                <meta name="description" content={story.seoTitle} />
-              </Head>
-              <Col>
-                <h1>{story.title}</h1>
-                <Imgix path={primaryImage.path} alt={primaryImage.caption} title={story.title} w="500" />
-                {/* eslint-disable-next-line react/no-danger */}
-                <article dangerouslySetInnerHTML={createMarkup(story.body)} />
-              </Col>
-            </Row>
-          );
-        }}
-      </Query>
+                return (
+                  <div>
+                    <Head>
+                      <title>{story.title}</title>
+                      <meta name="description" content={story.seoTitle} />
+                    </Head>
+                    <Imgix className="card-img" path={primaryImage.path} alt={primaryImage.caption} title={story.title} w="500" />
+                    <CardImgOverlay>
+                      <CardTitle tag="h1" className="text-light" style={{ textShadow: '1px 1px 5px rgba(0, 0, 0, 0.9)' }}>{story.title}</CardTitle>
+                      <CardTitle tag="h3" className="text-light" style={{ textShadow: '1px 1px 3px rgba(0, 0, 0, 0.9)' }}>{story.teaser}</CardTitle>
+                    </CardImgOverlay>
+                    <CardBody dangerouslySetInnerHTML={createMarkup(story.body)} />
+                  </div>
+                );
+              }}
+            </Query>
+          </Card>
+        </Col>
+      </Row>
     </Layout>
   );
 };
