@@ -20,6 +20,11 @@ const STORIES = gql`
     allStories(input: $input) {
       id
       title
+      slug
+      primarySection {
+        id
+        alias
+      }
     }
   }
 `;
@@ -46,7 +51,7 @@ const Index = () => {
                 return (
                   <ListGroup flush>
                     {allStories.map(story => (
-                      <Link as={`/story/${story.id}`} href={`/story?id=${story.id}`} passHref>
+                      <Link key={story.id} as={`/story/${story.primarySection.alias}/${story.slug}/${story.id}`} href={`/story?id=${story.id}`} passHref>
                         <ListGroupItem tag="a" action>{story.title}</ListGroupItem>
                       </Link>
                     ))}

@@ -77,8 +77,8 @@ const Story = ({ id }) => {
   );
 };
 
-Story.getInitialProps = async (context) => {
-  const { id } = context.query;
+Story.getInitialProps = async ({ query }) => {
+  const { id } = query;
   return { id };
 };
 
