@@ -6,6 +6,11 @@ const sitemap = require('../services/sitemap');
 const router = Router();
 
 module.exports = (client) => {
+  router.get('/:storyId([0-9]{8})', (req, res) => {
+    const { storyId } = req.params;
+    res.redirect(301, `/story/${storyId}`);
+  });
+
   router.get('/favicon.ico', (req, res) => {
     const file = path.resolve(__dirname, '../../static/favicon.ico');
     client.serveStatic(req, res, file);
