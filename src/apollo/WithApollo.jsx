@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Head from 'next/head';
 import { ApolloProvider, getDataFromTree } from 'react-apollo';
 import initApollo from './init';
 
@@ -46,8 +47,8 @@ export default function withApollo(apolloConfig) {
             // eslint-disable-next-line no-console
             console.error('SERVER ERROR', e);
           }
-          // @todo Determine if this needs to be called.
-          // Head.rewind();
+          // Clear the head state so duplicate head data is prevented.
+          Head.rewind();
           serverState = {
             apollo: { data: apollo.cache.extract() },
           };
