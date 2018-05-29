@@ -4,6 +4,7 @@ import Head from 'next/head';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Layout from '../components/MyLayout';
+import Imgix from '../components/Imgix';
 import withApollo from '../apollo/client';
 
 const STORY = gql`
@@ -13,6 +14,11 @@ const STORY = gql`
       title
       teaser
       body
+      seoTitle
+      primaryImage {
+        path
+        caption
+      }
     }
   }
 `;
@@ -29,14 +35,16 @@ const Story = ({ id }) => {
           if (error) return <p><strong>{error.message}</strong></p>;
 
           const { story } = data;
+          const { primaryImage } = story;
 
           return (
             <main>
               <Head>
                 <title>{story.title}</title>
-                <meta name="description" content={story.teaser} />
+                <meta name="description" content={story.seoTitle} />
               </Head>
               <h1>{story.title}</h1>
+              <Imgix path={primaryImage.path} alt={primaryImage.caption} title={story.title} w="500" />
               {/* eslint-disable-next-line react/no-danger */}
               <article dangerouslySetInnerHTML={createMarkup(story.body)} />
             </main>
