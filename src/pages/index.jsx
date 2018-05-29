@@ -1,9 +1,18 @@
 import React from 'react';
 import { Query } from 'react-apollo';
+import {
+  Row,
+  Col,
+  Card,
+  CardTitle,
+  CardBody,
+  ListGroup,
+  ListGroupItem,
+} from 'reactstrap';
 import Link from 'next/link';
 import Head from 'next/head';
 import gql from 'graphql-tag';
-import Layout from '../components/MyLayout';
+import Layout from '../components/Layout';
 import withApollo from '../apollo/client';
 
 const STORIES = gql`
@@ -22,51 +31,32 @@ const Index = () => {
       <Head>
         <title>Homepage</title>
       </Head>
-      <h1>Stories</h1>
-      <Query query={STORIES} variables={{ input }}>
-        {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p><strong>{error.message}</strong></p>;
+      <Row>
+        <Col>
+          <Card>
+            <CardBody>
+              <CardTitle tag="h1" className="mb-0">Stories</CardTitle>
+            </CardBody>
+            <Query query={STORIES} variables={{ input }}>
+              {({ loading, error, data }) => {
+                if (loading) return <p>Loading...</p>;
+                if (error) return <p><strong>{error.message}</strong></p>;
 
-          const { allStories } = data;
-          return (
-            <ul>
-              {allStories.map(story => (
-                <li key={story.id}>
-                  <Link as={`/story/${story.id}`} href={`/story?id=${story.id}`}>
-                    <a>{story.title}</a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          );
-        }}
-      </Query>
-      {/* <style jsx>
-        {`
-          h1, a {
-            font-family: "Arial";
-          }
-
-          ul {
-            padding: 0;
-          }
-
-          li {
-            list-style: none;
-            margin: 5px 0;
-          }
-
-          a {
-            text-decoration: none;
-            color: blue;
-          }
-
-          a:hover {
-            opacity: 0.6;
-          }
-        `}
-      </style> */}
+                const { allStories } = data;
+                return (
+                  <ListGroup flush>
+                    {allStories.map(story => (
+                      <Link as={`/story/${story.id}`} href={`/story?id=${story.id}`} passHref>
+                        <ListGroupItem tag="a" action>{story.title}</ListGroupItem>
+                      </Link>
+                    ))}
+                  </ListGroup>
+                );
+              }}
+            </Query>
+          </Card>
+        </Col>
+      </Row>
     </Layout>
   );
 };
