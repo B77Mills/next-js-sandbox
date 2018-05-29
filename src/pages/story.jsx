@@ -14,6 +14,7 @@ import { Query } from 'react-apollo';
 import Layout from '../components/Layout';
 import Imgix from '../components/Imgix';
 import withApollo from '../apollo/client';
+import { generateStoryUrl } from '../utils';
 
 const STORY = gql`
   query Story($input: ModelIdInput!) {
@@ -23,9 +24,14 @@ const STORY = gql`
       teaser
       body
       seoTitle
+      slug
       primaryImage {
         path
         caption
+      }
+      primarySection {
+        id
+        alias
       }
     }
   }
@@ -33,7 +39,7 @@ const STORY = gql`
 
 const createMarkup = html => ({ __html: html });
 
-const Story = ({ id }) => {
+const Story = ({ id, baseUri }) => {
   const input = { id };
   return (
     <Layout>
@@ -59,6 +65,7 @@ const Story = ({ id }) => {
                     <Head>
                       <title>{story.title}</title>
                       <meta name="description" content={story.seoTitle} />
+                      <link rel="canonical" href={`${baseUri}${generateStoryUrl(story)}`} />
                     </Head>
                     <Imgix className="card-img" path={primaryImage.path} alt={primaryImage.caption} title={story.title} w="500" />
                     <CardImgOverlay>
@@ -77,9 +84,12 @@ const Story = ({ id }) => {
   );
 };
 
-Story.getInitialProps = async ({ query }) => {
+Story.getInitialProps = async ({ query, req }) => {
+  const baseUri = process.browser
+    ? `${window.location.protocol}//${window.location.host}`
+    : `${req.protocol}://${req.headers.host}`;
   const { id } = query;
-  return { id };
+  return { id, baseUri };
 };
 
 Story.propTypes = {
