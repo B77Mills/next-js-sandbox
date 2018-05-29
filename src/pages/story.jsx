@@ -62,8 +62,8 @@ const Story = ({ id }) => {
                     </Head>
                     <Imgix className="card-img" path={primaryImage.path} alt={primaryImage.caption} title={story.title} w="500" />
                     <CardImgOverlay>
-                      <CardTitle tag="h1" className="text-light" style={{ textShadow: '1px 1px 5px rgba(0, 0, 0, 0.9)' }}>{story.title}</CardTitle>
-                      <CardTitle tag="h3" className="text-light" style={{ textShadow: '1px 1px 3px rgba(0, 0, 0, 0.9)' }}>{story.teaser}</CardTitle>
+                      <CardTitle tag="h1" className="text-light" style={{ textShadow: '1px 1px 8px rgba(0, 0, 0, 1)' }}>{story.title}</CardTitle>
+                      <CardTitle tag="h3" className="text-light" style={{ textShadow: '1px 1px 5px rgba(0, 0, 0, 1)' }}>{story.teaser}</CardTitle>
                     </CardImgOverlay>
                     <CardBody dangerouslySetInnerHTML={createMarkup(story.body)} />
                   </div>
