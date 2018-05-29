@@ -5,7 +5,7 @@ import initApollo from './init';
 
 const getDisplayName = Component => Component.displayName || Component.name || 'Unknown';
 
-export default function withData(apolloConfig) {
+export default function withApollo(apolloConfig) {
   return (ComposedComponent) => {
     class WithData extends React.Component {
       static async getInitialProps(context) {
