@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import gql from 'graphql-tag';
+import { Row, Col } from 'reactstrap';
 import { Query } from 'react-apollo';
-import Layout from '../components/MyLayout';
+import Layout from '../components/Layout';
 import Imgix from '../components/Imgix';
 import withApollo from '../apollo/client';
 
@@ -38,16 +39,18 @@ const Story = ({ id }) => {
           const { primaryImage } = story;
 
           return (
-            <main>
+            <Row>
               <Head>
                 <title>{story.title}</title>
                 <meta name="description" content={story.seoTitle} />
               </Head>
-              <h1>{story.title}</h1>
-              <Imgix path={primaryImage.path} alt={primaryImage.caption} title={story.title} w="500" />
-              {/* eslint-disable-next-line react/no-danger */}
-              <article dangerouslySetInnerHTML={createMarkup(story.body)} />
-            </main>
+              <Col>
+                <h1>{story.title}</h1>
+                <Imgix path={primaryImage.path} alt={primaryImage.caption} title={story.title} w="500" />
+                {/* eslint-disable-next-line react/no-danger */}
+                <article dangerouslySetInnerHTML={createMarkup(story.body)} />
+              </Col>
+            </Row>
           );
         }}
       </Query>
