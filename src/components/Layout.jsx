@@ -6,10 +6,9 @@ import {
   Navbar,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import ActiveNavItem from '../components/ActiveNavItem';
 
 const Layout = props => (
   <div>
@@ -22,12 +21,8 @@ const Layout = props => (
         <NavbarBrand>Firehouse</NavbarBrand>
       </Link>
       <Nav className="mr-auto" navbar>
-        <NavItem>
-          <Link href="/" passHref><NavLink>Home</NavLink></Link>
-        </NavItem>
-        <NavItem>
-          <Link href="/about" passHref><NavLink>About Us</NavLink></Link>
-        </NavItem>
+        <ActiveNavItem href="/" title="Home">Home</ActiveNavItem>
+        <ActiveNavItem href="/about" title="About">About</ActiveNavItem>
       </Nav>
     </Navbar>
     <Container className="my-3">
