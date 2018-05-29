@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { Row, Col } from 'reactstrap';
 import Layout from '../components/Layout';
 
 export default () => (
@@ -7,6 +8,10 @@ export default () => (
     <Head>
       <title>About Us</title>
     </Head>
-    <p>This is the about page</p>
+    <Row>
+      <Col>
+        <p>This is the about page</p>
+      </Col>
+    </Row>
   </Layout>
 );

@@ -17,13 +17,16 @@ const Layout = props => (
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossOrigin="anonymous" />
     </Head>
-    <Navbar dark color="dark">
+    <Navbar dark color="dark" expand>
       <Link href="/" passHref>
         <NavbarBrand>Firehouse</NavbarBrand>
       </Link>
       <Nav className="mr-auto" navbar>
         <NavItem>
           <Link href="/" passHref><NavLink>Home</NavLink></Link>
+        </NavItem>
+        <NavItem>
+          <Link href="/about" passHref><NavLink>About Us</NavLink></Link>
         </NavItem>
       </Nav>
     </Navbar>
