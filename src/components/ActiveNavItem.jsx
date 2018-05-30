@@ -27,8 +27,9 @@ ActiveNavItem.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  router: PropTypes.object.isRequired,
+  router: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 ActiveNavItem.defaultProps = {
